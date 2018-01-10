@@ -1,0 +1,66 @@
+<h1>test</h1>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.6.2/pixi.js'></script>
+
+<script>
+    //Create a Pixi Application
+    let app = new PIXI.Application({});
+
+    //Add the canvas that Pixi automatically created for you to the HTML document
+    let Application = PIXI.Application,
+        Container = PIXI.Container,
+        loader = PIXI.loader,
+        resources = PIXI.loader.resources,
+        TextureCache = PIXI.utils.TextureCache,
+        Sprite = PIXI.Sprite,
+        Rectangle = PIXI.Rectangle;
+    document.body.appendChild(app.view);
+    PIXI.loader
+        .add("images/cars.png")
+        .load(setup);
+
+
+    //This setup function will run when the image has loaded
+    let car;
+    function setup() {
+
+        //Create the tileset sprite from the texture
+        let texture = TextureCache["images/cars.png"];
+
+        //Create a rectangle object that defines the position and
+        //size of the sub-image you want to extract from the texture
+        //(Rectangle is an alias for PIXI.Rectangle)
+        let rectangle = new Rectangle(181, 11, 97, 40);
+
+        //Tell the texture to use that rectangular section
+        texture.frame = rectangle;
+
+        //Create the sprite from the texture
+        car = new Sprite(texture);
+
+        //Position the rocket sprite on the canvas
+        car.x = 32;
+        car.y = 32;
+        car.scale.x = -1;
+        //Add the rocket to the stage
+        app.stage.addChild(car);
+
+        //Render the stage
+        // renderer.render(stage);
+
+        gameLoop();
+    }
+    function gameLoop() {
+        requestAnimationFrame(gameLoop);
+        car.x += 5;
+    }
+
+</script>
+
+<!-- x = 181 -->
+<!-- y = 11 -->
+<!-- x = 278 -->
+<!-- y = 51 -->
+
+<!-- width = 97 -->
+<!-- height = 40 -->
